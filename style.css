@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  padding: 48px 24px 0;
+
+  /* background-image: url(img/mountains.jpg);
+   background-repeat: no-repeat; */
+  background-color: #1a1a2e;
+}
+.img-bacground {
+}
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main_container {
+  width: 540px;
+}
+
+.main__header {
+  margin: 0 0 30px;
+}
+
+.main__header-logo {
+  display: flex;
+  justify-content: space-between;
+}
+.main__header-logo h1 {
+  color: #fff;
+  letter-spacing: 14px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.form__container {
+  margin-bottom: 50px;
+}
+
+.inputTask {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  padding-left: 67px;
+  color: #acafd6;
+  width: 100%;
+  height: 55px;
+  font-size: 19px;
+}
+
+.inputTask:focus {
+  border: none;
+  outline: none;
+}
+
+.form__container ul {
+  position: relative;
+  width: 100%;
+  list-style-type: none;
+  background-color: #fff;
+  border-radius: 5px 5px 0px 0px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  color: #484b6a;
+}
+.taskList {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.form__container-text {
+  padding-left: 18px;
+  align-items: center;
+}
+
+button {
+  border: none;
+  background-color: #fff;
+}
+
+.cross {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Показать крестик только при наведении на ul */
+
+
+.circle {
+  margin-left: 24px;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(315deg, #f907fc 0%, #05d6d9 74%) border-box;
+  border: 2px solid transparent;
+
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.circle:hover {
+    background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(315deg, #f907fc 0%, #05d6d9 74%) border-box;
+}
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 13px;
+  height: 13px;
+  display: none;
+  user-select: none;
+}
+
+/* Показываем галочку, когда круг выбран */
+.circle.checked .checkmark {
+  display: block;
+  opacity: 1;
+}
+
+.circle.checked {
+  background-image: linear-gradient(315deg, #f907fc 0%, #05d6d9 74%);
+  border: none;
+  width: 25px;
+  height: 25px;
+}
+
+.circle.checked .checkmark {
+  opacity: 1;
+}
+.line {
+  background-color: #dddde2;
+  width: 540px;
+  height: 1px;
+}
+.todo__list-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0px 0px 5px 5px;
+  font-size: 15px;
+  color: #9394a5;
+  height: 50px;
+}
+
+.todo__list-footer button {
+  color: #9394a5;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.todo-list__options-container button {
+  margin: 0 16px 0px 0px;
+  font-weight: 600;
+}
+
+
+.form__container ul li label {
+  display: flex;
+  align-items: center; /* Центрирует по вертикали */
+  height: 100%; /* Обеспечивает, чтобы label занимал всю высоту своего контейнера */
+}
+
+.main__footer {
+  text-align: center;
+  color: #9394a5;
+}
+.main__footer-big {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.main__footer-small {
+  font-size: 11px;
+}
+.task {
+    border: 1px solid #484b6a;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative; /* Делаем родителем для абсолютного позиционирования крестика */
+  }
+
+  .cross-btn {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    border: none;
+    background-color: transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .task:hover .cross-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
