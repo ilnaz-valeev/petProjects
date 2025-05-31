@@ -40,7 +40,7 @@ main {
 }
 
 .form__container {
-  margin-bottom: 50px;
+  
 }
 
 .inputTask {
@@ -215,3 +215,13 @@ button {
     opacity: 1;
     pointer-events: auto;
   }
+
+  /* .task.checked .form__container-text {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .task.checked .circle {
+    background-color: #4CAF50;
+  }
+   */
