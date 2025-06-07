@@ -3,6 +3,9 @@ const inputTask = document.querySelector(".inputTask");
 const clearButton = document.querySelector(".clearButton"); // Переименовано для ясности
 const countingTask = document.querySelector(".countingTask");
 const logo = document.querySelector(".logo");
+const activeButton = document.querySelector(".activeButton");
+const completedTasks = document.querySelectorAll(".task.checked"); 
+
 
 // Добавление задачи
 inputTask.addEventListener("keydown", (e) => {
@@ -50,7 +53,7 @@ taskList.addEventListener("click", (e) => {
 
 // Очистка выполненных задач 
 clearButton.addEventListener("click", () => {
-  const completedTasks = document.querySelectorAll(".task.checked"); // Правильное имя
+    
   completedTasks.forEach((task) => {
     task.remove();
     updateTaskCount();
@@ -64,11 +67,17 @@ function updateTaskCount() {
 }
 
 
-logo.addEventListener("click",(e)=>{
-    
-    if (logo == ligth) {
-      body = ligth;
+activeButton.addEventListener("click", () => {
+  // Получаем все задачи
+  const allTasks = document.querySelectorAll(".task");
+
+  allTasks.forEach((task) => {
+    if (task.classList.contains("checked")) {
+      // Скрываем выполненные задачи
+      task.style.display = "none";
     } else {
-      body = dark;
+      // Показываем активные задачи
+      task.style.display = "flex"; // Или "block", в зависимости от вашего CSS
     }
+  });
 });
