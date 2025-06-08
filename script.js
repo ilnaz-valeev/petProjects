@@ -4,18 +4,23 @@ const clearButton = document.querySelector(".clearButton"); // Переимен�
 const countingTask = document.querySelector(".countingTask");
 const logo = document.querySelector(".logo");
 const activeButton = document.querySelector(".activeButton");
-const completedTasks = document.querySelectorAll(".task.checked"); 
+
 
 
 // Добавление задачи
+// Добавление задачи
 inputTask.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && inputTask.value.trim() !== "") {
-    e.preventDefault();
-    addTask(inputTask.value.trim());
-    updateTaskCount();
-    inputTask.value = "";
-  }
-});
+    if (e.key === "Enter") {
+      e.preventDefault(); // Всегда предотвращаем стандартное поведение
+      
+      if (inputTask.value.trim() !== "") {
+        addTask(inputTask.value.trim());
+        updateTaskCount();
+        inputTask.value = "";
+      }
+      // Если поле пустое - просто ничего не делаем
+    }
+  });
 
 function addTask(taskText) {
   const taskHTML = `
@@ -53,7 +58,7 @@ taskList.addEventListener("click", (e) => {
 
 // Очистка выполненных задач 
 clearButton.addEventListener("click", () => {
-    
+    const completedTasks = document.querySelectorAll(".task.checked"); 
   completedTasks.forEach((task) => {
     task.remove();
     updateTaskCount();
@@ -79,5 +84,18 @@ activeButton.addEventListener("click", () => {
       // Показываем активные задачи
       task.style.display = "flex"; // Или "block", в зависимости от вашего CSS
     }
+  });
+});
+
+
+document.querySelector(".allButton").addEventListener("click", () => {
+  document.querySelectorAll(".task").forEach((task) => {
+    task.style.display = "flex"; // Показываем все задачи
+  });
+});
+
+document.querySelector(".completedButton").addEventListener("click", () => {
+  document.querySelectorAll(".task").forEach((task) => {
+    task.style.display = task.classList.contains("checked") ? "flex" : "none";
   });
 });
