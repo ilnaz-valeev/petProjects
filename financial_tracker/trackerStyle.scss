@@ -1,12 +1,12 @@
 // Переменные
-$primary-color: #3498db;
+$primary-color: #7FDBFF;
 $income-color: #2ecc71;
 $expense-color: #e74c3c;
-$light-gray: #f5f5f5;
-$dark-gray: #333;
-$medium-gray: #777;
+$light-gray: #2f3640;
+$dark-gray: #f5f5f5;
+$medium-gray: #aaa;
 $border-radius: 8px;
-$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 
 // Миксины
 @mixin flex-center {
@@ -16,7 +16,7 @@ $box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 @mixin card-style {
-  background: white;
+  background: #34495e;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   padding: 1.5rem;
@@ -78,6 +78,21 @@ body {
   }
 }
 
+.operationBalance{
+        background-color: #34495e;
+        color: #fff;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+      
+}
+
+
 .main-content {
   display: grid;
   grid-template-columns: 1fr;
@@ -119,9 +134,11 @@ body {
   input, select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: $border-radius;
     font-size: 1rem;
+    background-color: #2c3e50;
+    color: $dark-gray;
 
     &:focus {
       outline: none;
@@ -173,8 +190,10 @@ body {
 
       select {
         padding: 0.5rem;
-        border: 1px solid #ddd;
+        border: 1px solid #444;
         border-radius: $border-radius;
+        background-color: #2c3e50;
+        color: $dark-gray;
       }
     }
   }
@@ -190,7 +209,7 @@ body {
     i {
       font-size: 3rem;
       margin-bottom: 1rem;
-      color: #ddd;
+      color: #aaa;
     }
   }
 }
@@ -200,15 +219,16 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #444;
   transition: background-color 0.3s;
+  background-color: #3e4c59;
 
   &:last-child {
     border-bottom: none;
   }
 
   &:hover {
-    background-color: #f9f9f9;
+    background-color: #2c3e50;
   }
 
   .transaction-info {
@@ -280,6 +300,7 @@ body {
   padding: 1.5rem;
   border-radius: $border-radius;
   text-align: center;
+  background-color: #2c3e50;
 
   h3 {
     font-size: 1rem;

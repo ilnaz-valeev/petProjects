@@ -1,3 +1,4 @@
+const balanceAmount = document.querySelector(".balance-amount");
 const addButton = document.querySelector(".btn");
 
 const description = document.querySelector("#description");
@@ -21,6 +22,9 @@ const categoryTranslations = {
   salary: "Зарплата",
   other: "Другое",
 };
+
+// Начальный баланс
+let currentBalance = 0;
 
 addButton.addEventListener("click", (e) => {
   e.preventDefault(); // предотвращаем перезагрузку страницы
@@ -52,13 +56,24 @@ function addOperation() {
 
   // Добавляем новую операцию в список
   const operation = `
-    <li>
-        <span>${description.value}</span>
-        <span>${amount.value}</span>
-        <span>${translatedType}</span>
-        <span>${translatedCategory}</span>
-        <span>${date.value}</span>
+    <li class= " operationBalance">
+        <span class= "operationSpan">${description.value}</span>
+        <span class= "operationSpan">${amount.value}</span>
+        <span class= "operationSpan">${translatedType}</span>
+        <span class= "operationSpan">${translatedCategory}</span>
+        <span class= "operationSpan">${date.value}</span>
     </li>`;
+
+  // Обновление баланса
+  const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
+  if (type.value === "income") {
+    currentBalance += operationAmount; // Если доход, увеличиваем баланс
+  } else if (type.value === "expense") {
+    currentBalance -= operationAmount; // Если расход, уменьшаем баланс
+  }
+
+  // Обновляем отображаемый баланс
+  balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
