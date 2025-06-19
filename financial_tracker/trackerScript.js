@@ -7,6 +7,11 @@ const type = document.querySelector("#type");
 const category = document.querySelector("#category");
 const date = document.querySelector("#date");
 const emptyState = document.querySelector(".empty-state");
+const statAmount = document.querySelector(".stat-amount");
+const expenseAmount = document.querySelector(".expense-amount");
+const chartContainer = document.querySelector(".chart-container");
+
+
 
 // Объекты для перевода значений на русский
 const typeTranslations = {
@@ -68,12 +73,28 @@ function addOperation() {
   const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
   if (type.value === "income") {
     currentBalance += operationAmount; // Если доход, увеличиваем баланс
+    statAmount.textContent = `${currentBalance} ₽`;
+
+    // const statAmountLi = `
+    // <li class = "">
+
+    // </li>
+    // `
+    // chartContainer.add(statAmountLi);
+
   } else if (type.value === "expense") {
     currentBalance -= operationAmount; // Если расход, уменьшаем баланс
+    expenseAmount.textContent = `${currentBalance} ₽`;
   }
+
+//можно добавить функцию круговую диаграмму где по категориям еда зп и тд и также линейную чтобы посмотреть расходы и доходы как менялись и это все по месяцам(в статистику) 
+
 
   // Обновляем отображаемый баланс
   balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
+
+
+
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
