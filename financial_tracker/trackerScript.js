@@ -28,8 +28,10 @@ const categoryTranslations = {
   other: "Другое",
 };
 
-// Начальный баланс
+// Начальные значения
 let currentBalance = 0;
+let totalIncome = 0;
+let totalExpense = 0;
 
 addButton.addEventListener("click", (e) => {
   e.preventDefault(); // предотвращаем перезагрузку страницы
@@ -73,18 +75,12 @@ function addOperation() {
   const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
   if (type.value === "income") {
     currentBalance += operationAmount; // Если доход, увеличиваем баланс
-    statAmount.textContent = `${currentBalance} ₽`;
-
-    // const statAmountLi = `
-    // <li class = "">
-
-    // </li>
-    // `
-    // chartContainer.add(statAmountLi);
-
+    totalIncome += operationAmount; // Увеличиваем сумму доходов
+    statAmount.textContent = `${totalIncome} ₽`; // Отображаем сумму доходов
   } else if (type.value === "expense") {
     currentBalance -= operationAmount; // Если расход, уменьшаем баланс
-    expenseAmount.textContent = `${currentBalance} ₽`;
+    totalExpense += operationAmount; // Увеличиваем сумму расходов
+    expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
   }
 
 //можно добавить функцию круговую диаграмму где по категориям еда зп и тд и также линейную чтобы посмотреть расходы и доходы как менялись и это все по месяцам(в статистику) 
@@ -99,3 +95,6 @@ function addOperation() {
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
 }
+
+
+
