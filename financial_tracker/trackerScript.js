@@ -10,6 +10,9 @@ const emptyState = document.querySelector(".empty-state");
 const statAmount = document.querySelector(".stat-amount");
 const expenseAmount = document.querySelector(".expense-amount");
 const chartContainer = document.querySelector(".chart-container");
+// const filterType = document.querySelector("#filter-type");
+const filterType = document.getElementById("filter-type");
+const transactionList = document.getElementById("transactions-list");
 
 
 
@@ -61,15 +64,15 @@ function addOperation() {
   const translatedCategory =
     categoryTranslations[category.value] || category.value;
 
-  // Добавляем новую операцию в список
+  // Создание новой операции с добавлением класса типа (income или expense)
   const operation = `
-    <li class= " operationBalance">
-        <span class= "operationSpan">${description.value}</span>
-        <span class= "operationSpan">${amount.value}</span>
-        <span class= "operationSpan">${translatedType}</span>
-        <span class= "operationSpan">${translatedCategory}</span>
-        <span class= "operationSpan">${date.value}</span>
-    </li>`;
+      <li class="operationBalance ${type.value}">
+          <span class="operationSpan">${description.value}</span>
+          <span class="operationSpan">${amount.value}</span>
+          <span class="operationSpan">${translatedType}</span>
+          <span class="operationSpan">${translatedCategory}</span>
+          <span class="operationSpan">${date.value}</span>
+      </li>`;
 
   // Обновление баланса
   const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
@@ -83,18 +86,34 @@ function addOperation() {
     expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
   }
 
-//можно добавить функцию круговую диаграмму где по категориям еда зп и тд и также линейную чтобы посмотреть расходы и доходы как менялись и это все по месяцам(в статистику) 
-
-
   // Обновляем отображаемый баланс
   balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
-
-
-
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
 }
+  
 
 
+// Функция для фильтрации транзакций
+filterType.addEventListener("change", function () {
+  const selectedFilter = filterType.value; // Получаем выбранный фильтр (income или expense)
+  
+  // Получаем все транзакции в списке
+  const transactions = transactionList.querySelectorAll(".operationBalance");
 
+  // Перебираем все транзакции
+  transactions.forEach(function (transaction) {
+    // Убираем класс 'hidden' у всех элементов, чтобы они снова были видны
+    transaction.classList.remove("hidden");
+
+    // Если фильтр не "all", фильтруем по типу операции
+    if (selectedFilter !== "all") {
+      // Проверяем, соответствует ли тип операции выбранному фильтру
+      if (!transaction.classList.contains(selectedFilter)) {
+        // Если не совпадает, скрываем транзакцию
+        transaction.classList.add("hidden");
+      }
+    }
+  });
+});
