@@ -10,9 +10,8 @@ const emptyState = document.querySelector(".empty-state");
 const statAmount = document.querySelector(".stat-amount");
 const expenseAmount = document.querySelector(".expense-amount");
 const chartContainer = document.querySelector(".chart-container");
-// const filterType = document.querySelector("#filter-type");
-const filterType = document.getElementById("filter-type");
-const transactionList = document.getElementById("transactions-list");
+
+
 
 
 
@@ -94,6 +93,8 @@ function addOperation() {
 }
   
 
+const filterType = document.getElementById("filter-type");
+const transactionList = document.getElementById("transactions-list");
 
 // Функция для фильтрации транзакций
 filterType.addEventListener("change", function () {
@@ -117,3 +118,33 @@ filterType.addEventListener("change", function () {
     }
   });
 });
+
+//Вывод категорий 
+const filterCategory = document.querySelector("#filter-category");
+
+filterCategory.addEventListener("change", function () {
+    const selectedFilter = filterCategory.value;
+  
+    // Получаем все транзакции в списке
+    const transactions = transactionList.querySelectorAll(".operationBalance");
+  
+    // Перебираем все транзакции
+    transactions.forEach(function (transaction) {
+      // Убираем класс 'hidden' у всех элементов, чтобы они снова были видны
+      transaction.classList.remove("hidden");
+  
+      // Если выбран фильтр, отличный от "all", фильтруем по категории
+      if (selectedFilter !== "all") {
+        // Получаем категорию из транзакции
+        const transactionCategory = transaction.querySelector(".operationSpan:nth-child(4)").textContent;
+        
+        // Проверяем, соответствует ли категория выбранному фильтру
+        if (transactionCategory !== categoryTranslations[selectedFilter]) {
+          // Если не совпадает, скрываем транзакцию
+          transaction.classList.add("hidden");
+        }
+      }
+    });
+  });
+  
+
