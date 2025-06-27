@@ -79,10 +79,21 @@ function addOperation() {
     currentBalance += operationAmount; // Если доход, увеличиваем баланс
     totalIncome += operationAmount; // Увеличиваем сумму доходов
     statAmount.textContent = `${totalIncome} ₽`; // Отображаем сумму доходов
+
+    // Обновление данных на графике для доходов
+   
+    chart.data.datasets[0].data.push(operationAmount); // Добавляем доход в данные
+
+
   } else if (type.value === "expense") {
     currentBalance -= operationAmount; // Если расход, уменьшаем баланс
     totalExpense += operationAmount; // Увеличиваем сумму расходов
     expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
+
+    // Обновление данных на графике для расходов
+    chart.data.datasets[1].data.push(operationAmount); // Добавляем расход в данныек
+
+    chart.data.labels.push(date.value);
   }
 
   // Обновляем отображаемый баланс
@@ -90,6 +101,12 @@ function addOperation() {
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
+
+  // Обновляем график
+  chart.update(); // Это необходимо, чтобы график отобразил обновленные данные
+
+  
+  chart.data.labels.push(date.value, translatedCategory);
 }
   
 
@@ -156,16 +173,16 @@ filterCategory.addEventListener("change", function () {
   const chart = new Chart(ctxs, {
     type: "bar",
     data: {
-      labels: ["Январь", "Февраль", "Март"], // Месяцы или категории
+      labels: [], // Месяцы или категории
       datasets: [
         {
           label: "Доходы",
-          data: [1000, 2000, 1500], // Данные доходов
+          data: [], // Данные доходов
           backgroundColor: "rgba(0, 123, 255, 0.5)",
         },
         {
           label: "Расходы",
-          data: [500, 1000, 800], // Данные расходов
+          data: [], // Данные расходов
           backgroundColor: "rgba(220, 53, 69, 0.5)",
         },
       ],
@@ -173,6 +190,11 @@ filterCategory.addEventListener("change", function () {
   });
 
 
+//   chart.data.datasets[0].data = totalIncome // Используем актуальное значение для доходов
+//   chart.data.datasets[1].data = totalExpense // Используем актуальное значение для расходов
+  
+// // Обновляем график
+// chart.update();
 
 
 //ДИОГРАММА КРУГОВАЯ
