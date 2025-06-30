@@ -92,8 +92,35 @@
                     </div>
                 </div>
             </section>
+            <section class="stats-left">
+                <h2> Расходы и Доходы
+                </h2>
+                <div class="stats-month">
+                    <button>вперед</button><p>Июнь</p><button>назад</button>
+                </div>
 
-            <section class="stats">
+                <canvas id="myPieChart"></canvas>
+            </section>
+                <section class="stats">
+                    <h2><i class="fas fa-chart-pie"></i> Статистика</h2>
+                    <div class="stats-cards">
+                        <div class="stat-card income">
+                            <h3>Доходы</h3>
+                            <p class="stat-amount">0 ₽</p>
+                        </div>
+                        <div class="stat-card expense">
+                            <h3>Расходы</h3>
+                            <p class="stat-amount expense-amount">0 ₽</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart"></canvas>
+
+                    </div>
+                </section>
+
+
+            <!-- <section class="stats">
                 <h2><i class="fas fa-chart-pie"></i> Статистика</h2>
                 <div class="stats-cards">
                     <div class="stat-card income">
@@ -110,6 +137,10 @@
                     <canvas id="myPieChart"></canvas>
                 </div>
             </section>
+            <section class="stats-rigth">
+                <h2> Расходы и Доходы</h2>
+
+            </section> -->
         </main>
     </div>
 

@@ -11,10 +11,6 @@ const statAmount = document.querySelector(".stat-amount");
 const expenseAmount = document.querySelector(".expense-amount");
 const chartContainer = document.querySelector(".chart-container");
 
-
-
-
-
 // Объекты для перевода значений на русский
 const typeTranslations = {
   income: "Доход",
@@ -81,19 +77,26 @@ function addOperation() {
     statAmount.textContent = `${totalIncome} ₽`; // Отображаем сумму доходов
 
     // Обновление данных на графике для доходов
-   
-    chart.data.datasets[0].data.push(operationAmount); // Добавляем доход в данные
-
-
+    if (!chart.data.labels.includes(date.value)) {
+      chart.data.labels.push(date.value);
+    }
+    // Находим индекс этой даты
+    const labelIndex = chart.data.labels.indexOf(date.value);
+    // Устанавливаем значение для дохода на этой дате
+    chart.data.datasets[0].data[labelIndex] =
+      (chart.data.datasets[0].data[labelIndex] || 0) + operationAmount;
   } else if (type.value === "expense") {
     currentBalance -= operationAmount; // Если расход, уменьшаем баланс
     totalExpense += operationAmount; // Увеличиваем сумму расходов
     expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
 
     // Обновление данных на графике для расходов
-    chart.data.datasets[1].data.push(operationAmount); // Добавляем расход в данныек
-
-    chart.data.labels.push(date.value);
+    if (!chart.data.labels.includes(date.value)) {
+      chart.data.labels.push(date.value);
+    }
+    const labelIndex = chart.data.labels.indexOf(date.value);
+    chart.data.datasets[1].data[labelIndex] =
+      (chart.data.datasets[1].data[labelIndex] || 0) + operationAmount;
   }
 
   // Обновляем отображаемый баланс
@@ -104,11 +107,7 @@ function addOperation() {
 
   // Обновляем график
   chart.update(); // Это необходимо, чтобы график отобразил обновленные данные
-
-  
-  chart.data.labels.push(date.value, translatedCategory);
 }
-  
 
 const filterType = document.getElementById("filter-type");
 const transactionList = document.getElementById("transactions-list");
@@ -116,7 +115,7 @@ const transactionList = document.getElementById("transactions-list");
 // Функция для фильтрации транзакций
 filterType.addEventListener("change", function () {
   const selectedFilter = filterType.value; // Получаем выбранный фильтр (income или expense)
-  
+
   // Получаем все транзакции в списке
   const transactions = transactionList.querySelectorAll(".operationBalance");
 
@@ -136,121 +135,130 @@ filterType.addEventListener("change", function () {
   });
 });
 
-//Вывод категорий 
+//Вывод категорий
 const filterCategory = document.querySelector("#filter-category");
 
 filterCategory.addEventListener("change", function () {
-    const selectedFilter = filterCategory.value;
-  
-    // Получаем все транзакции в списке
-    const transactions = transactionList.querySelectorAll(".operationBalance");
-  
-    // Перебираем все транзакции
-    transactions.forEach(function (transaction) {
-      // Убираем класс 'hidden' у всех элементов, чтобы они снова были видны
-      transaction.classList.remove("hidden");
-  
-      // Если выбран фильтр, отличный от "all", фильтруем по категории
-      if (selectedFilter !== "all") {
-        // Получаем категорию из транзакции
-        const transactionCategory = transaction.querySelector(".operationSpan:nth-child(4)").textContent;
-        
-        // Проверяем, соответствует ли категория выбранному фильтру
-        if (transactionCategory !== categoryTranslations[selectedFilter]) {
-          // Если не совпадает, скрываем транзакцию
-          transaction.classList.add("hidden");
-        }
-      }
-    });
-  });
-  
-//ДИОГРАММА ЛИНЕЙНАЯ
-//ДИОГРАММА ЛИНЕЙНАЯ
-//ДИОГРАММА ЛИНЕЙНАЯ
-//ДИОГРАММА ЛИНЕЙНАЯ
-//ДИОГРАММА ЛИНЕЙНАЯ
-  const ctxs = document.getElementById("chart").getContext("2d");
-  const chart = new Chart(ctxs, {
-    type: "bar",
-    data: {
-      labels: [], // Месяцы или категории
-      datasets: [
-        {
-          label: "Доходы",
-          data: [], // Данные доходов
-          backgroundColor: "rgba(0, 123, 255, 0.5)",
-        },
-        {
-          label: "Расходы",
-          data: [], // Данные расходов
-          backgroundColor: "rgba(220, 53, 69, 0.5)",
-        },
-      ],
-    },
-  });
+  const selectedFilter = filterCategory.value;
 
+  // Получаем все транзакции в списке
+  const transactions = transactionList.querySelectorAll(".operationBalance");
+
+  // Перебираем все транзакции
+  transactions.forEach(function (transaction) {
+    // Убираем класс 'hidden' у всех элементов, чтобы они снова были видны
+    transaction.classList.remove("hidden");
+
+    // Если выбран фильтр, отличный от "all", фильтруем по категории
+    if (selectedFilter !== "all") {
+      // Получаем категорию из транзакции
+      const transactionCategory = transaction.querySelector(
+        ".operationSpan:nth-child(4)"
+      ).textContent;
+
+      // Проверяем, соответствует ли категория выбранному фильтру
+      if (transactionCategory !== categoryTranslations[selectedFilter]) {
+        // Если не совпадает, скрываем транзакцию
+        transaction.classList.add("hidden");
+      }
+    }
+  });
+});
+
+//ДИОГРАММА ЛИНЕЙНАЯ
+//ДИОГРАММА ЛИНЕЙНАЯ
+//ДИОГРАММА ЛИНЕЙНАЯ
+//ДИОГРАММА ЛИНЕЙНАЯ
+//ДИОГРАММА ЛИНЕЙНАЯ
+const ctxs = document.getElementById("chart").getContext("2d");
+const chart = new Chart(ctxs, {
+  type: "bar",
+  data: {
+    labels: [], // Здесь будут даты или категории
+    datasets: [
+      {
+        label: "Доходы",
+        data: [],
+        backgroundColor: "rgba(0, 123, 255, 0.5)",
+      },
+      {
+        label: "Расходы",
+        data: [],
+        backgroundColor: "rgba(220, 53, 69, 0.5)",
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
 
 //   chart.data.datasets[0].data = totalIncome // Используем актуальное значение для доходов
 //   chart.data.datasets[1].data = totalExpense // Используем актуальное значение для расходов
-  
+
 // // Обновляем график
 // chart.update();
 
-
 //ДИОГРАММА КРУГОВАЯ
 //ДИОГРАММА КРУГОВАЯ
 //ДИОГРАММА КРУГОВАЯ
 //ДИОГРАММА КРУГОВАЯ
 //ДИОГРАММА КРУГОВАЯ
 
-
-  // Получаем контекст для диаграммы
-const ctx = document.getElementById('myPieChart').getContext('2d');
+// Получаем контекст для диаграммы
+const ctx = document.getElementById("myPieChart").getContext("2d");
 
 // Данные для диаграммы (можете изменить эти данные в зависимости от ваших нужд)
 const data = {
-  labels: ['Еда', 'Транспорт', 'Развлечения', 'Жилье', 'Другое'], // Категории
-  datasets: [{
-    label: 'Расходы по категориям',
-    data: [5000, 2000, 1500, 3000, 1000], // Значения для каждой категории (например, расходы в рублях)
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)', // Цвет для сектора "Еда"
-      'rgba(54, 162, 235, 0.2)', // Цвет для сектора "Транспорт"
-      'rgba(255, 206, 86, 0.2)', // Цвет для сектора "Развлечения"
-      'rgba(75, 192, 192, 0.2)', // Цвет для сектора "Жилье"
-      'rgba(153, 102, 255, 0.2)'  // Цвет для сектора "Другое"
-    ],
-    borderColor: [
-      'rgba(255, 99, 132, 1)',   // Цвет границ для сектора "Еда"
-      'rgba(54, 162, 235, 1)',   // Цвет границ для сектора "Транспорт"
-      'rgba(255, 206, 86, 1)',   // Цвет границ для сектора "Развлечения"
-      'rgba(75, 192, 192, 1)',   // Цвет границ для сектора "Жилье"
-      'rgba(153, 102, 255, 1)'   // Цвет границ для сектора "Другое"
-    ],
-    borderWidth: 1
-  }]
+  labels: ["Еда", "Транспорт", "Развлечения", "Жилье", "Другое"], // Категории
+  datasets: [
+    {
+      label: "Расходы по категориям",
+      data: [5000, 2000, 1500, 3000, 1000], // Значения для каждой категории (например, расходы в рублях)
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)", // Цвет для сектора "Еда"
+        "rgba(54, 162, 235, 0.2)", // Цвет для сектора "Транспорт"
+        "rgba(255, 206, 86, 0.2)", // Цвет для сектора "Развлечения"
+        "rgba(75, 192, 192, 0.2)", // Цвет для сектора "Жилье"
+        "rgba(153, 102, 255, 0.2)", // Цвет для сектора "Другое"
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)", // Цвет границ для сектора "Еда"
+        "rgba(54, 162, 235, 1)", // Цвет границ для сектора "Транспорт"
+        "rgba(255, 206, 86, 1)", // Цвет границ для сектора "Развлечения"
+        "rgba(75, 192, 192, 1)", // Цвет границ для сектора "Жилье"
+        "rgba(153, 102, 255, 1)", // Цвет границ для сектора "Другое"
+      ],
+      borderWidth: 1,
+    },
+  ],
 };
 
 // Конфигурация диаграммы
 const config = {
-  type: 'pie',  // Тип диаграммы - круговая
+  type: "pie", // Тип диаграммы - круговая
   data: data,
   options: {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',  // Позиция легенды
+        position: "top", // Позиция легенды
       },
       tooltip: {
         callbacks: {
-          label: function(tooltipItem) {
-            return tooltipItem.label + ': ' + tooltipItem.raw + ' ₽'; // Добавляем символ валюты
-          }
-        }
-      }
-    }
-  }
+          label: function (tooltipItem) {
+            return tooltipItem.label + ": " + tooltipItem.raw + " ₽"; // Добавляем символ валюты
+          },
+        },
+      },
+    },
+  },
 };
 
 // Создание диаграммы
 const myPieChart = new Chart(ctx, config);
+
