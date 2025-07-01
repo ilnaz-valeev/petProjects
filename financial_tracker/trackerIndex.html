@@ -6,7 +6,7 @@
     <title>Финансовый трекер</title>
     <link rel="stylesheet" href="/css/trackerStyle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 </head>
 <body>
@@ -93,14 +93,17 @@
                 </div>
             </section>
             <section class="stats-left">
-                <h2> Расходы и Доходы
-                </h2>
+                <h2>Расходы</h2>
                 <div class="stats-month">
-                    <button>вперед</button><p>Июнь</p><button>назад</button>
+                  <button>&lt;</button>
+                  <p>Июнь</p>
+                  <button>&gt;</button>
                 </div>
-
-                <canvas id="myPieChart"></canvas>
-            </section>
+                <div class="chart-container">
+                  <canvas id="myPieChart"></canvas>
+                </div>
+              </section>
+              
                 <section class="stats">
                     <h2><i class="fas fa-chart-pie"></i> Статистика</h2>
                     <div class="stats-cards">
@@ -119,33 +122,12 @@
                     </div>
                 </section>
 
-
-            <!-- <section class="stats">
-                <h2><i class="fas fa-chart-pie"></i> Статистика</h2>
-                <div class="stats-cards">
-                    <div class="stat-card income">
-                        <h3>Доходы</h3>
-                        <p class="stat-amount">0 ₽</p>
-                    </div>
-                    <div class="stat-card expense">
-                        <h3>Расходы</h3>
-                        <p class="stat-amount expense-amount">0 ₽</p>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="chart"></canvas>
-                    <canvas id="myPieChart"></canvas>
-                </div>
-            </section>
-            <section class="stats-rigth">
-                <h2> Расходы и Доходы</h2>
-
-            </section> -->
         </main>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
     <script src="trackerScript.js"></script>
 </body>

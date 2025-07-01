@@ -104,9 +104,25 @@ function addOperation() {
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
+  
+  if (type.value === "expense") {
+    const categoryIndex = [
+      "food",
+      "transport",
+      "housing",
+      "entertainment",
+      "salary",
+      "other",
+    ].indexOf(category.value);
+    if (categoryIndex !== -1) {
+      myPieChart.data.datasets[0].data[categoryIndex] += operationAmount; // Увеличиваем соответствующую категорию
+    }
+  }
+  // Обновление диаграммы
+  myPieChart.update();
 
   // Обновляем график
-  chart.update(); // Это необходимо, чтобы график отобразил обновленные данные
+  chart.update();
 }
 
 const filterType = document.getElementById("filter-type");
@@ -197,11 +213,10 @@ const chart = new Chart(ctxs, {
   },
 });
 
-//   chart.data.datasets[0].data = totalIncome // Используем актуальное значение для доходов
-//   chart.data.datasets[1].data = totalExpense // Используем актуальное значение для расходов
 
-// // Обновляем график
-// chart.update();
+
+
+chart.update();
 
 //ДИОГРАММА КРУГОВАЯ
 //ДИОГРАММА КРУГОВАЯ
@@ -212,13 +227,13 @@ const chart = new Chart(ctxs, {
 // Получаем контекст для диаграммы
 const ctx = document.getElementById("myPieChart").getContext("2d");
 
-// Данные для диаграммы (можете изменить эти данные в зависимости от ваших нужд)
+// Данные для диаграммы 
 const data = {
-  labels: ["Еда", "Транспорт", "Развлечения", "Жилье", "Другое"], // Категории
+  labels: ["Еда", "Транспорт", "Развлечения","Зарплата", "Жилье", "Другое"], // Категории
   datasets: [
     {
       label: "Расходы по категориям",
-      data: [5000, 2000, 1500, 3000, 1000], // Значения для каждой категории (например, расходы в рублях)
+      data: [0, 0, 0, 0, 0], // Значения для каждой категории (например, расходы в рублях)
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)", // Цвет для сектора "Еда"
         "rgba(54, 162, 235, 0.2)", // Цвет для сектора "Транспорт"
@@ -261,4 +276,3 @@ const config = {
 
 // Создание диаграммы
 const myPieChart = new Chart(ctx, config);
-
