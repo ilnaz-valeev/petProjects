@@ -178,33 +178,25 @@ function addOperation() {
   chart.update();
 }
 
-
-
-
 // Функция обновления круговой диаграммы для выбранного месяца
 function updatePieChartForMonth() {
-    // Проверяем, существует ли месяц в monthlyData
-    if (!monthlyData[currentMonth]) {
-      // Если месяца нет, создаем пустую структуру для него
-      monthlyData[currentMonth] = {
-        income: [0, 0, 0, 0, 0, 0],
-        expense: [0, 0, 0, 0, 0, 0],
-      };
-    }
-  
-    const incomeData = monthlyData[currentMonth].income; // Данные для доходов
-    const expenseData = monthlyData[currentMonth].expense; // Данные для расходов
-  
-    // Обновляем данные диаграммы
-    myPieChart.data.datasets[0].data = incomeData; // Доходы
-    myPieChart.data.datasets[1].data = expenseData; // Расходы
-    myPieChart.update(); // Обновляем диаграмму
+  // Проверяем, существует ли месяц в monthlyData
+  if (!monthlyData[currentMonth]) {
+    // Если месяца нет, создаем пустую структуру для него
+    monthlyData[currentMonth] = {
+      income: [0, 0, 0, 0, 0, 0],
+      expense: [0, 0, 0, 0, 0, 0],
+    };
   }
-  
 
+  const incomeData = monthlyData[currentMonth].income; // Данные для доходов
+  const expenseData = monthlyData[currentMonth].expense; // Данные для расходов
 
-
-  
+  // Обновляем данные диаграммы
+  myPieChart.data.datasets[0].data = incomeData; // Доходы
+  myPieChart.data.datasets[1].data = expenseData; // Расходы
+  myPieChart.update(); // Обновляем диаграмму
+}
 
 // Элементы для переключения месяцев
 const prevMonthButton = document.getElementById("prev-month");
@@ -230,23 +222,22 @@ const months = [
 // Переключение на предыдущий месяц
 // Переключение на предыдущий месяц
 prevMonthButton.addEventListener("click", () => {
-    const currentIndex = months.indexOf(currentMonth);
-    const prevIndex = currentIndex === 0 ? months.length - 1 : currentIndex - 1;
-    currentMonth = months[prevIndex];
-    monthName.textContent = currentMonth; // Обновляем отображение месяца
-  
-    // Если месяца нет в monthlyData, создаем его
-    if (!monthlyData[currentMonth]) {
-      monthlyData[currentMonth] = {
-        income: [0, 0, 0, 0, 0, 0],
-        expense: [0, 0, 0, 0, 0, 0],
-      };
-    }
-  
-    // Обновляем круговую диаграмму для выбранного месяца
-    updatePieChartForMonth();
-  });
-  
+  const currentIndex = months.indexOf(currentMonth);
+  const prevIndex = currentIndex === 0 ? months.length - 1 : currentIndex - 1;
+  currentMonth = months[prevIndex];
+  monthName.textContent = currentMonth; // Обновляем отображение месяца
+
+  // Если месяца нет в monthlyData, создаем его
+  if (!monthlyData[currentMonth]) {
+    monthlyData[currentMonth] = {
+      income: [0, 0, 0, 0, 0, 0],
+      expense: [0, 0, 0, 0, 0, 0],
+    };
+  }
+
+  // Обновляем круговую диаграмму для выбранного месяца
+  updatePieChartForMonth();
+});
 
 // Переключение на следующий месяц
 nextMonthButton.addEventListener("click", () => {
@@ -327,7 +318,6 @@ const config = {
     },
   },
 };
-
 
 // Создание диаграммы
 const myPieChart = new Chart(ctx, config);
