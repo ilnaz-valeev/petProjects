@@ -103,6 +103,7 @@ addButton.addEventListener("click", (e) => {
 });
 
 // Функция добавления операции
+// Функция добавления операции
 function addOperation() {
   const transactionList = document.querySelector("#transactions-list");
 
@@ -128,13 +129,13 @@ function addOperation() {
 
   // Создание новой операции с добавлением класса типа (income или expense)
   const operation = `
-      <li class="operationBalance ${type.value}">
-          <span class="operationSpan">${description.value}</span>
-          <span class="operationSpan">${amount.value}</span>
-          <span class="operationSpan">${translatedType}</span>
-          <span class="operationSpan">${translatedCategory}</span>
-          <span class="operationSpan">${date.value}</span>
-      </li>`;
+        <li class="operationBalance ${type.value}">
+            <span class="operationSpan">${description.value}</span>
+            <span class="operationSpan">${amount.value}</span>
+            <span class="operationSpan">${translatedType}</span>
+            <span class="operationSpan">${translatedCategory}</span>
+            <span class="operationSpan">${date.value}</span>
+        </li>`;
 
   // Обновление баланса
   const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
@@ -148,6 +149,18 @@ function addOperation() {
 
     // Обновление данных на графике для доходов
     updatePieChartForMonth();
+
+    // Обновление столбчатой диаграммы для доходов
+    const dateIndex = chart.data.labels.indexOf(date.value);
+    if (dateIndex === -1) {
+      // Если дата не найдена, добавляем её в метки
+      chart.data.labels.push(date.value);
+      chart.data.datasets[0].data.push(operationAmount); // Добавляем доход
+      chart.data.datasets[1].data.push(0); // Для расходов ставим 0
+    } else {
+      // Если дата уже есть, обновляем существующие данные
+      chart.data.datasets[0].data[dateIndex] += operationAmount; // Добавляем доход
+    }
   } else if (type.value === "expense") {
     currentBalance -= operationAmount; // Если расход, уменьшаем баланс
     totalExpense += operationAmount; // Увеличиваем сумму расходов
@@ -158,24 +171,28 @@ function addOperation() {
 
     // Обновление данных на графике для расходов
     updatePieChartForMonth();
+
+    // Обновление столбчатой диаграммы для расходов
+    const dateIndex = chart.data.labels.indexOf(date.value);
+    if (dateIndex === -1) {
+      // Если дата не найдена, добавляем её в метки
+      chart.data.labels.push(date.value);
+      chart.data.datasets[0].data.push(0); // Для доходов ставим 0
+      chart.data.datasets[1].data.push(operationAmount); // Добавляем расход
+    } else {
+      // Если дата уже есть, обновляем существующие данные
+      chart.data.datasets[1].data[dateIndex] += operationAmount; // Добавляем расход
+    }
   }
-  // Обновление столбчатой диаграммы для расходов
-  const dateIndex = chart.data.labels.indexOf(date.value);
-  if (dateIndex === -1) {
-    // Если дата не найдена, добавляем её в метки
-    chart.data.labels.push(date.value);
-    chart.data.datasets[0].data.push(0); // Для доходов ставим 0
-    chart.data.datasets[1].data.push(operationAmount); // Добавляем расход
-  } else {
-    // Если дата уже есть, обновляем существующие данные
-    chart.data.datasets[1].data[dateIndex] += operationAmount; // Добавляем расход
-  }
+
   // Обновляем отображаемый баланс
   balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
 
   // Вставляем операцию в список
   transactionList.innerHTML += operation;
-  chart.update();
+
+  // Обновляем график
+  chart.update(); // Обновляем столбчатую диаграмму
 }
 
 // Функция обновления круговой диаграммы для выбранного месяца
@@ -189,10 +206,11 @@ function updatePieChartForMonth() {
     };
   }
 
-  const incomeData = monthlyData[currentMonth].income; // Данные для доходов
-  const expenseData = monthlyData[currentMonth].expense; // Данные для расходов
+  // Данные для доходов и расходов для текущего месяца
+  const incomeData = monthlyData[currentMonth].income;
+  const expenseData = monthlyData[currentMonth].expense;
 
-  // Обновляем данные диаграммы
+  // Обновляем данные диаграммы для текущего месяца
   myPieChart.data.datasets[0].data = incomeData; // Доходы
   myPieChart.data.datasets[1].data = expenseData; // Расходы
   myPieChart.update(); // Обновляем диаграмму

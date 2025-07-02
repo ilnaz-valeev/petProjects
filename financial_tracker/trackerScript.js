@@ -31,59 +31,185 @@ const categoryTranslations = {
 };
 
 // Массив для хранения данных по месяцам
-let monthlyData = {
-  Январь: {
-    income: [0, 0, 0, 0, 0, 0], // Для каждой категории дохода (Еда, Транспорт, и т.д.)
-    expense: [0, 0, 0, 0, 0, 0], // Для каждой категории расходов
+let monthlyData = [
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Январь
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Февраль
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Март
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Апрель
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Май
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Июнь
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Июль
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Август
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Сентябрь
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Октябрь
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Ноябрь
+  { income: Array(31).fill(0), expense: Array(31).fill(0) }, // Декабрь
+];
+  
+// let monthlyData = [
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+//   {
+//     income: Array(31).fill(0), // Доходы по дням
+//     expense: Array(31).fill(0), // Расходы по дням
+//   },
+
+// ];
+
+let categoryData = [
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Февраль: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Март: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Апрель: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Май: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Июнь: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Июль: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Август: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Сентябрь: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Октоябрь: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Ноябрь: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  Декабрь: {
-    income: [0, 0, 0, 0, 0, 0],
-    expense: [0, 0, 0, 0, 0, 0],
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
   },
-  // Добавь другие месяцы по аналогии
-};
+  {
+    food: { income: 0, expense: 0 },
+    transport: { income: 0, expense: 0 },
+    housing: { income: 0, expense: 0 },
+    entertainment: { income: 0, expense: 0 },
+    salary: { income: 0, expense: 0 },
+    other: { income: 0, expense: 0 },
+  },
+  // Для других месяцев...
+];
+  
 
 // Месяц, который выбран в данный момент
+
+
 let currentMonth = "Январь";
 
 // Обработчик для кнопки добавления транзакции
@@ -103,161 +229,182 @@ addButton.addEventListener("click", (e) => {
 });
 
 // Функция добавления операции
+// Функция добавления операции
+// Функция добавления операции
+// Функция добавления операции
 function addOperation() {
-  const transactionList = document.querySelector("#transactions-list");
+    const transactionList = document.querySelector("#transactions-list");
 
-  // Удаляем элемент "empty-state", если транзакции добавлены
-  if (transactionList.children.length > 0) {
-    emptyState.remove();
-  }
+    // Удаляем элемент "empty-state", если транзакции добавлены
+    if (transactionList.children.length > 0) {
+      emptyState.remove();
+    }
 
-  // Перевод значений с использованием словарей
-  const translatedType = typeTranslations[type.value] || type.value;
-  const translatedCategory =
-    categoryTranslations[category.value] || category.value;
+    // Перевод значений с использованием словарей
+    const translatedType = typeTranslations[type.value] || type.value;
+    const translatedCategory = categoryTranslations[category.value] || category.value;
 
-  // Индекс категории (Еда, Транспорт и т.д.)
-  const categoryIndex = [
-    "food",
-    "transport",
-    "housing",
-    "entertainment",
-    "salary",
-    "other",
-  ].indexOf(category.value);
+    // Индекс категории (Еда, Транспорт и т.д.)
+    const categoryIndex = [
+      "food",
+      "transport",
+      "housing",
+      "entertainment",
+      "salary",
+      "other",
+    ].indexOf(category.value);
 
-  // Создание новой операции с добавлением класса типа (income или expense)
-  const operation = `
-      <li class="operationBalance ${type.value}">
-          <span class="operationSpan">${description.value}</span>
-          <span class="operationSpan">${amount.value}</span>
-          <span class="operationSpan">${translatedType}</span>
-          <span class="operationSpan">${translatedCategory}</span>
-          <span class="operationSpan">${date.value}</span>
-      </li>`;
+    // Получаем день из выбранной даты (используем метод getDate для получения числа дня)
+    const selectedDate = new Date(date.value);
+    const selectedDay = selectedDate.getDate(); // День месяца от 1 до 31
 
-  // Обновление баланса
-  const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
-  if (type.value === "income") {
-    currentBalance += operationAmount; // Если доход, увеличиваем баланс
-    totalIncome += operationAmount; // Увеличиваем сумму доходов
-    statAmount.textContent = `${totalIncome} ₽`; // Отображаем сумму доходов
+    // Получаем индекс месяца
+    const selectedMonthIndex = selectedDate.getMonth(); // Месяц от 0 (Январь) до 11 (Декабрь)
 
-    // Обновление данных по доходам для выбранного месяца
-    monthlyData[currentMonth].income[categoryIndex] += operationAmount;
+    // Создание новой операции с добавлением класса типа (income или expense)
+    const operation = `
+        <li class="operationBalance ${type.value}">
+            <span class="operationSpan">${description.value}</span>
+            <span class="operationSpan">${amount.value}</span>
+            <span class="operationSpan">${translatedType}</span>
+            <span class="operationSpan">${translatedCategory}</span>
+            <span class="operationSpan">${date.value}</span>
+        </li>`;
 
-    // Обновление данных на графике для доходов
-    updatePieChartForMonth();
-  } else if (type.value === "expense") {
-    currentBalance -= operationAmount; // Если расход, уменьшаем баланс
-    totalExpense += operationAmount; // Увеличиваем сумму расходов
-    expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
+    const operationAmount = parseFloat(amount.value); // Преобразуем введенную сумму в число
 
-    // Обновление данных по расходам для выбранного месяца
-    monthlyData[currentMonth].expense[categoryIndex] += operationAmount;
+    // Обновляем данные только для выбранного месяца
+    if (type.value === "income") {
+      currentBalance += operationAmount; // Если доход, увеличиваем баланс
+      totalIncome += operationAmount; // Увеличиваем сумму доходов
+      statAmount.textContent = `${totalIncome} ₽`; // Отображаем сумму доходов
 
-    // Обновление данных на графике для расходов
-    updatePieChartForMonth();
-  }
-  // Обновление столбчатой диаграммы для расходов
-  const dateIndex = chart.data.labels.indexOf(date.value);
-  if (dateIndex === -1) {
-    // Если дата не найдена, добавляем её в метки
-    chart.data.labels.push(date.value);
-    chart.data.datasets[0].data.push(0); // Для доходов ставим 0
-    chart.data.datasets[1].data.push(operationAmount); // Добавляем расход
-  } else {
-    // Если дата уже есть, обновляем существующие данные
-    chart.data.datasets[1].data[dateIndex] += operationAmount; // Добавляем расход
-  }
-  // Обновляем отображаемый баланс
-  balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
+      // Обновление данных по доходам для выбранного месяца
+      monthlyData[selectedMonthIndex].income[categoryIndex] += operationAmount;
+      categoryData[selectedMonthIndex][category.value].income += operationAmount;
+    } else if (type.value === "expense") {
+      currentBalance -= operationAmount; // Если расход, уменьшаем баланс
+      totalExpense += operationAmount; // Увеличиваем сумму расходов
+      expenseAmount.textContent = `${totalExpense} ₽`; // Отображаем сумму расходов
 
-  // Вставляем операцию в список
-  transactionList.innerHTML += operation;
-  chart.update();
+      // Обновление данных по расходам для выбранного месяца
+      monthlyData[selectedMonthIndex].expense[categoryIndex] += operationAmount;
+      categoryData[selectedMonthIndex][category.value].expense += operationAmount;
+    }
+
+    // Обновление баланса и добавление операции в список
+    balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`; // Показываем новый баланс с двумя знаками после запятой
+    transactionList.innerHTML += operation;
+
+    // Обновление графиков только для выбранного месяца
+    updatePieChartForMonth(selectedMonthIndex); // Обновляем круговую диаграмму для выбранного месяца
+    updateBarChartForMonth(selectedMonthIndex); // Обновляем столбчатую диаграмму для выбранного месяца
+    chart.update(); // Обновляем столбчатую диаграмму
 }
-
-
-
+  
+  // Функция обновления столбчатой диаграммы для выбранного месяца
+  function updateBarChartForMonth(monthIndex) {
+    const incomeData = monthlyData[monthIndex].income;
+    const expenseData = monthlyData[monthIndex].expense;
+  
+    // Обновляем метки на графике (по дням месяца)
+    chart.data.labels = Array.from({ length: 31 }, (_, i) => i + 1); // Месяц состоит из 31 дня
+  
+    // Обновляем данные для столбцов графика
+    chart.data.datasets[0].data = incomeData; // Доходы
+    chart.data.datasets[1].data = expenseData; // Расходы
+  
+    // Обновляем диаграмму
+    chart.update();
+  }
+  
+  // Функция обновления круговой диаграммы для выбранного месяца
 
 // Функция обновления круговой диаграммы для выбранного месяца
-function updatePieChartForMonth() {
-    // Проверяем, существует ли месяц в monthlyData
-    if (!monthlyData[currentMonth]) {
-      // Если месяца нет, создаем пустую структуру для него
-      monthlyData[currentMonth] = {
-        income: [0, 0, 0, 0, 0, 0],
-        expense: [0, 0, 0, 0, 0, 0],
-      };
-    }
+function updatePieChartForMonth(monthIndex) {
+    // Суммируем данные для каждой категории (Доходы и Расходы)
+    const incomeData = [
+      categoryData[monthIndex].food.income,
+      categoryData[monthIndex].transport.income,
+      categoryData[monthIndex].housing.income,
+      categoryData[monthIndex].entertainment.income,
+      categoryData[monthIndex].salary.income,
+      categoryData[monthIndex].other.income,
+    ];
   
-    const incomeData = monthlyData[currentMonth].income; // Данные для доходов
-    const expenseData = monthlyData[currentMonth].expense; // Данные для расходов
+    const expenseData = [
+      categoryData[monthIndex].food.expense,
+      categoryData[monthIndex].transport.expense,
+      categoryData[monthIndex].housing.expense,
+      categoryData[monthIndex].entertainment.expense,
+      categoryData[monthIndex].salary.expense,
+      categoryData[monthIndex].other.expense,
+    ];
   
-    // Обновляем данные диаграммы
+    // Обновляем данные на круговой диаграмме для доходов и расходов
     myPieChart.data.datasets[0].data = incomeData; // Доходы
     myPieChart.data.datasets[1].data = expenseData; // Расходы
-    myPieChart.update(); // Обновляем диаграмму
+  
+    // Обновляем метки на диаграмме, чтобы отображались категории
+    myPieChart.data.labels = [
+      "Еда",
+      "Транспорт",
+      "Развлечения",
+      "Зарплата",
+      "Жилье",
+      "Другое",
+    ];
+  
+    // Обновляем диаграмму
+    myPieChart.update();
   }
   
-
-
-
+  // Элементы для переключения месяцев
+  const prevMonthButton = document.getElementById("prev-month");
+  const nextMonthButton = document.getElementById("next-month");
+  const monthName = document.getElementById("month-name");
   
-
-// Элементы для переключения месяцев
-const prevMonthButton = document.getElementById("prev-month");
-const nextMonthButton = document.getElementById("next-month");
-const monthName = document.getElementById("month-name");
-
-// Список месяцев
-const months = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь",
-];
-
-// Переключение на предыдущий месяц
-// Переключение на предыдущий месяц
-prevMonthButton.addEventListener("click", () => {
+  // Список месяцев
+  const months = [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
+  ];
+  
+  // Переключение на предыдущий месяц
+  prevMonthButton.addEventListener("click", () => {
     const currentIndex = months.indexOf(currentMonth);
     const prevIndex = currentIndex === 0 ? months.length - 1 : currentIndex - 1;
     currentMonth = months[prevIndex];
     monthName.textContent = currentMonth; // Обновляем отображение месяца
   
-    // Если месяца нет в monthlyData, создаем его
-    if (!monthlyData[currentMonth]) {
-      monthlyData[currentMonth] = {
-        income: [0, 0, 0, 0, 0, 0],
-        expense: [0, 0, 0, 0, 0, 0],
-      };
-    }
-  
-    // Обновляем круговую диаграмму для выбранного месяца
-    updatePieChartForMonth();
+    // Обновляем круговую и столбчатую диаграмму для выбранного месяца
+    updatePieChartForMonth(prevIndex);
+    updateBarChartForMonth(prevIndex);
   });
   
-
-// Переключение на следующий месяц
-nextMonthButton.addEventListener("click", () => {
-  const currentIndex = months.indexOf(currentMonth);
-  const nextIndex = currentIndex === months.length - 1 ? 0 : currentIndex + 1;
-  currentMonth = months[nextIndex];
-  monthName.textContent = currentMonth; // Обновляем отображение месяца
-
-  // Обновляем круговую диаграмму для выбранного месяца
-  updatePieChartForMonth();
-});
+  // Переключение на следующий месяц
+  nextMonthButton.addEventListener("click", () => {
+    const currentIndex = months.indexOf(currentMonth);
+    const nextIndex = currentIndex === months.length - 1 ? 0 : currentIndex + 1;
+    currentMonth = months[nextIndex];
+    monthName.textContent = currentMonth; // Обновляем отображение месяца
+  
+    // Обновляем круговую и столбчатую диаграмму для выбранного месяца
+    updatePieChartForMonth(nextIndex);
+    updateBarChartForMonth(nextIndex);
+  });
+  
+  
 
 // Инициализация диаграммы
 const ctx = document.getElementById("myPieChart").getContext("2d");
@@ -327,7 +474,6 @@ const config = {
     },
   },
 };
-
 
 // Создание диаграммы
 const myPieChart = new Chart(ctx, config);
