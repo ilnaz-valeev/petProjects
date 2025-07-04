@@ -32,18 +32,22 @@ const categoryTranslations = {
 
 // Массив для хранения данных по месяцам
 // Замена длинных массивов на:
-let monthlyData = Array(12).fill().map(() => ({
+let monthlyData = Array(12)
+  .fill()
+  .map(() => ({
     income: Array(31).fill(0),
-    expense: Array(31).fill(0)
+    expense: Array(31).fill(0),
   }));
-  
-  let categoryData = Array(12).fill().map(() => ({
+
+let categoryData = Array(12)
+  .fill()
+  .map(() => ({
     food: { income: 0, expense: 0 },
     transport: { income: 0, expense: 0 },
     housing: { income: 0, expense: 0 },
     entertainment: { income: 0, expense: 0 },
     salary: { income: 0, expense: 0 },
-    other: { income: 0, expense: 0 }
+    other: { income: 0, expense: 0 },
   }));
 
 // Список месяцев
@@ -269,10 +273,6 @@ const myPieChart = new Chart(ctx, {
     plugins: {
       legend: {
         position: "top",
-        labels: {
-
-          color: "#f5f5f5", // Цвет текста легенды
-        },
       },
       tooltip: {
         callbacks: {
@@ -280,7 +280,6 @@ const myPieChart = new Chart(ctx, {
             return tooltipItem.label + ": " + tooltipItem.raw + " ₽";
           },
         },
-        bodyColor: "#f5f5f5", // Цвет текста тултипа (подсказки)
       },
     },
   },
@@ -308,24 +307,6 @@ const chart = new Chart(ctxs, {
     scales: {
       y: {
         beginAtZero: true,
-      },
-      x: {
-        ticks: {
-          font: {
-            letterSpacing: 2,
-          },
-          color: "#f5f5f5", // Цвет текста для оси X
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            letterSpacing: 2,
-          },
-          color: "#f5f5f5", // Цвет текста легенды
-        },
       },
     },
   },
