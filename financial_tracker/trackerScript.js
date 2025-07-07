@@ -82,11 +82,12 @@ addButton.addEventListener("click", (e) => {
 });
 
 // Функция добавления операции
+// Функция добавления операции
 function addOperation() {
   const transactionList = document.querySelector("#transactions-list");
 
   // Удаляем элемент "empty-state", если транзакции добавлены
-  if (transactionList.children.length > 0) {
+  if (transactionList.children.length > 0 && emptyState.parentNode) {
     emptyState.remove();
   }
 
@@ -100,17 +101,27 @@ function addOperation() {
   const selectedDay = selectedDate.getDate(); // День месяца от 1 до 31
   const selectedMonthIndex = selectedDate.getMonth(); // Месяц от 0 (Январь) до 11 (Декабрь)
 
-  // Создание новой операции
-  const operation = `
-        <li class="operationBalance ${type.value}">
-            <span class="operationSpan">${description.value}</span>
-            <span class="operationSpan">${amount.value}</span>
-            <span class="operationSpan">${translatedType}</span>
-            <span class="operationSpan">${translatedCategory}</span>
-            <span class="operationSpan">${date.value}</span>
-        </li>`;
+  // Заменяем запятую на точку для корректного парсинга
+  let amountValue = amount.value.replace(",", ".");
+  const operationAmount = parseFloat(amountValue);
+  if (isNaN(operationAmount)) {
+    alert("Некорректная сумма!");
+    return;
+  }
 
-  const operationAmount = parseFloat(amount.value);
+  // Генерируем уникальный ID для операции
+  const operationId = Date.now().toString();
+
+  // Создание новой операции с кнопкой удаления
+  const operation = `
+          <li class="operationBalance ${type.value}" data-id="${operationId}" data-amount="${operationAmount}" data-type="${type.value}" data-category="${category.value}" data-date="${date.value}">
+              <span class="operationSpan">${description.value}</span>
+              <span class="operationSpan">${amount.value}</span>
+              <span class="operationSpan">${translatedType}</span>
+              <span class="operationSpan">${translatedCategory}</span>
+              <span class="operationSpan">${date.value}</span>
+              <span class="delete-btn">×</span>
+          </li>`;
 
   // Обновляем данные для месяца, указанного в дате операции
   if (type.value === "income") {
@@ -131,17 +142,89 @@ function addOperation() {
     categoryData[selectedMonthIndex][category.value].expense += operationAmount;
   }
 
-  if (selectedMonthIndex === currentMonthIndex) {
-    updatePieChartForMonth(currentMonthIndex);
-    updateBarChartForMonth(currentMonthIndex);
-  }
   // Обновление баланса и добавление операции в список
   balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`;
   transactionList.innerHTML += operation;
 
-  // НЕ обновляем графики здесь! Они обновляются только при переключении месяцев
-}
+  // Если операция относится к текущему отображаемому месяцу - обновляем графики
+  if (selectedMonthIndex === currentMonthIndex) {
+    updatePieChartForMonth(currentMonthIndex);
+    updateBarChartForMonth(currentMonthIndex);
+  }
 
+  // Очищаем поля формы
+  description.value = "";
+  amount.value = "";
+}
+  
+  
+  
+// Функция удаления операции
+// Функция удаления операции
+// Функция удаления операции
+function deleteOperation(operationElement) {
+    // Получаем данные операции
+    const opAmount = parseFloat(operationElement.dataset.amount);
+    const opType = operationElement.dataset.type;
+    const opCategory = operationElement.dataset.category;
+    const dateStr = operationElement.dataset.date;
+    
+    // Получаем день и месяц операции
+    const selectedDate = new Date(dateStr);
+    const selectedDay = selectedDate.getDate();
+    const selectedMonthIndex = selectedDate.getMonth();
+    
+    // Обновляем данные приложения
+    if (opType === "income") {
+      currentBalance -= opAmount;
+      totalIncome -= opAmount;
+      statAmount.textContent = `${totalIncome} ₽`;
+      
+      // Обновляем данные для месяца
+      monthlyData[selectedMonthIndex].income[selectedDay - 1] -= opAmount;
+      categoryData[selectedMonthIndex][opCategory].income -= opAmount;
+    } else if (opType === "expense") {
+      currentBalance += opAmount;
+      totalExpense -= opAmount;
+      expenseAmount.textContent = `${totalExpense} ₽`;
+      
+      // Обновляем данные для месяца
+      monthlyData[selectedMonthIndex].expense[selectedDay - 1] -= opAmount;
+      categoryData[selectedMonthIndex][opCategory].expense -= opAmount;
+    }
+    
+    // Обновляем баланс
+    balanceAmount.textContent = `${currentBalance.toFixed(2)} ₽`;
+    
+    // Удаляем операцию из DOM
+    operationElement.remove();
+    
+    // Если операция была в текущем месяце - обновляем графики
+    if (selectedMonthIndex === currentMonthIndex) {
+      updatePieChartForMonth(currentMonthIndex);
+      updateBarChartForMonth(currentMonthIndex);
+    }
+    
+    // Показываем empty-state если список операций пуст
+    const transactionList = document.querySelector("#transactions-list");
+    if (transactionList.children.length === 0) {
+      transactionList.parentElement.appendChild(emptyState);
+    }
+  }
+  
+  
+  // Обработчик для кнопок удаления операций
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-btn')) {
+      deleteOperation(e.target.closest('li'));
+    }
+  });
+  
+
+  
+  
+  
+  
 // Функция обновления круговой диаграммы для выбранного месяца
 function updatePieChartForMonth(monthIndex) {
   // Суммируем данные для каждой категории

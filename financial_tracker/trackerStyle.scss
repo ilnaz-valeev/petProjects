@@ -317,6 +317,7 @@ body {
     }
   
     .chart-container {
+        justify-content: center;
       width: 100%;
       height: 300px;
       margin-top: 2rem;
@@ -409,6 +410,24 @@ body {
   height: 300px;
   margin-top: 1.5rem;
 }
+.delete-btn {
+    cursor: pointer;
+    color: $expense-color;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    transition: color 0.3s;
+  }
+  
+  .delete-btn:hover {
+    color: #ff0000;
+  }
+  
+  .operationBalance {
+    position: relative;
+    padding-right: 40px; /* Чтобы текст не заезжал под кнопку */
+  }
 
 // Анимации
 @keyframes fadeIn {
@@ -419,3 +438,166 @@ body {
 .transaction-item {
   animation: fadeIn 0.3s ease-out;
 }
+/* Мобильная адаптация (до 768px) */
+@media (max-width: 768px) {
+    /* Основная структура */
+    .container {
+      padding: 0 12px;
+    }
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container-stats {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    /* Шапка */
+    .header {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1rem 0;
+    }
+    
+    .balance-container {
+      position: static;
+      max-width: 100%;
+      margin: 15px 0 0;
+      order: 2;
+    }
+    
+    /* Форма добавления */
+    .add-transaction {
+      order: 1;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* История операций */
+    .transactions {
+      order: 2;
+      margin-bottom: 1.5rem;
+      
+      .transactions-header {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .filters {
+          flex-direction: column;
+          width: 100%;
+          margin-top: 10px;
+          
+          select {
+            width: 100%;
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+    
+    /* Статистика */
+    .stats-left {
+      order: 3;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stats {
+      order: 4;
+    }
+    
+    /* Элементы операций */
+    .operationBalance {
+      display: flex;
+      grid-template:
+        "description delete" auto
+        "amount amount" auto
+        "meta meta" auto / 1fr auto;
+      padding: 12px;
+      gap: 8px;
+    }
+    
+    .operationSpan:nth-child(1) { grid-area: description; }
+    .operationSpan:nth-child(2) { 
+      grid-area: amount; 
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .operationSpan:nth-child(3),
+    .operationSpan:nth-child(4),
+    .operationSpan:nth-child(5) { 
+      grid-area: meta; 
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    
+    .delete-btn {
+      grid-area: delete;
+      position: static;
+      transform: none;
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    
+    /* Карточки статистики */
+    .stats-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    /* Навигация месяцев */
+    .stats-month {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      
+      p {
+        text-align: center;
+        margin: 0;
+        order: -1;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+    
+    /* Графики */
+    .chart-container {
+      height: 260px;
+    }
+  }
+  
+  /* Дополнительная оптимизация для маленьких экранов */
+  @media (max-width: 480px) {
+    .operationBalance {
+      grid-template:
+        "description delete" auto
+        "amount amount" auto
+        "type category" auto
+        "date date" auto / 1fr 1fr;
+    }
+    
+    .operationSpan:nth-child(3) { grid-area: type; }
+    .operationSpan:nth-child(4) { grid-area: category; }
+    .operationSpan:nth-child(5) { grid-area: date; }
+    
+    .chart-container {
+      height: 220px;
+    }
+    
+    .balance-amount {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* Горизонтальная ориентация */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .transactions-list {
+      max-height: 200px;
+    }
+    
+    .chart-container {
+      height: 200px;
+    }
+  }
