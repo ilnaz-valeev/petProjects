@@ -353,6 +353,9 @@ const myPieChart = new Chart(ctx, {
       legend: {
         position: "top",
         labels: {
+          font: {
+            family: "Roboto", 
+          },
 
           color: "#f5f5f5", // Цвет текста легенды
         },
@@ -363,7 +366,7 @@ const myPieChart = new Chart(ctx, {
             return tooltipItem.label + ": " + tooltipItem.raw + " ₽";
           },
         },
-        bodyColor: "#f5f5f5", // Цвет текста тултипа (подсказки)
+        bodyColor: "#f5f5f5", 
       },
     },
   },
@@ -388,9 +391,13 @@ const chart = new Chart(ctxs, {
     ],
   },
   options: {
+    responsive: true,
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          color: "#f5f5f5", // Цвет текста оси Y
+        },
       },
       x: {
         ticks: {

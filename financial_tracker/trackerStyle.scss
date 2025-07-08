@@ -1,12 +1,11 @@
-// Переменные
-$primary-color: #7FDBFF;
-$income-color: #2ecc71;
-$expense-color: #e74c3c;
-$light-gray: #2f3640;
-$dark-gray: #f5f5f5;
-$medium-gray: #aaa;
-$border-radius: 8px;
-$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+// Переменные для отображения данных
+$primary-color: #5D8CFF; /* Основной цвет (сделан более спокойным синим) */
+$income-color: #27ae60;  /* Зеленый для дохода (более спокойный оттенок) */
+$expense-color: #e74c3c;  /* Красный для расхода */
+$light-gray: #34495e;     /* Темно-серый фон */
+$dark-gray: #ecf0f1;      /* Светлый текст */
+$medium-gray: #aaa;       /* Серый для неактивных текстов */
+
 
 // Миксины
 @mixin flex-center {
@@ -28,15 +27,23 @@ $box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Roboto', sans-serif; 
 }
 
 body {
+    font-family: 'Roboto', sans-serif; 
   background-color: $light-gray;
   color: $dark-gray;
   line-height: 1.6;
 }
-
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 700;
+  }
+  .btn {
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 500;
+  }
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -62,6 +69,7 @@ body {
 
 .balance-container {
     @include card-style;
+    z-index: 10;
     width: 100%;
     max-width: 300px;
     position: fixed;
@@ -92,19 +100,27 @@ body {
   }
   
 
-.operationBalance {
-  background-color: #34495e;
-  color: #fff;
-  padding: 0.75rem;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style-type: none;
-}
-
+  .operationBalance {
+    background-color: #34495e; /* Темный фон для операций */
+    color: #fff;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+  }
+  
+.operationBalance.income {
+    background-color: rgba($income-color, 0.1); /* Мягкий зеленый фон для доходов */
+  }
+  
+  .operationBalance.expense {
+    background-color: rgba($expense-color, 0.1); /* Мягкий красный фон для расходов */
+  }
+  
 .hidden {
   display: none;
 }
@@ -164,21 +180,22 @@ body {
 }
 
 .btn {
-  background-color: $primary-color;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: $border-radius;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
-  margin-top: 0.5rem;
-
-  &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: darken($primary-color, 10%); /* Тёмный оттенок основного цвета для кнопок */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 0.5rem;
+  
+    &:hover {
+      background-color: darken($primary-color, 20%); /* Более темный цвет при наведении */
+    }
   }
-}
+  
 
 .transactions {
   @include card-style;
@@ -295,7 +312,8 @@ body {
       align-items: center;
   
       button {
-        background-color: $light-gray;
+        // background-color: $primary-color;
+        background-color: darken($primary-color, 10%);
         padding: 5px 10px;
         border-radius: 5px;
         border: none;
@@ -305,7 +323,7 @@ body {
         transition: background-color 0.3s ease;
   
         &:hover {
-          background-color: darken($light-gray, 10%);
+            background-color: darken($primary-color, 20%);
         }
       }
   
@@ -387,21 +405,21 @@ body {
     }
   
     &.income {
-      background-color: rgba($income-color, 0.1);
-      border-left: 4px solid $income-color;
-  
-      .stat-amount {
-        color: $income-color;
-      }
+        background-color: rgba($income-color, 0.1); /* Мягкий фон для доходов */
+        border-left: 4px solid $income-color;
+      
+        .stat-amount {
+          color: $income-color; /* Зеленый для дохода */
+        }
     }
   
     &.expense {
-      background-color: rgba($expense-color, 0.1);
-      border-left: 4px solid $expense-color;
-  
-      .stat-amount {
-        color: $expense-color;
-      }
+        background-color: rgba($expense-color, 0.1); /* Мягкий фон для расходов */
+        border-left: 4px solid $expense-color;
+      
+        .stat-amount {
+          color: $expense-color; /* Красный для расходов */
+        }
     }
   }
 .chart-container {
@@ -416,6 +434,7 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     position: absolute;
+    padding-bottom: 3px;
     right: 10px;
     transition: color 0.3s;
   }
@@ -496,6 +515,9 @@ body {
         }
       }
     }
+    .delete-btn {
+        padding-bottom: 6px;
+      }
     
     /* Статистика */
     .stats-left {
@@ -601,3 +623,5 @@ body {
       height: 200px;
     }
   }
+
+  
